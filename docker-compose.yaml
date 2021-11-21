@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+    - published: 80
+      target: 80
+      protocol: tcp
+    volumes:
+      - type: bind
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+  display:
+    container_name: display
+    image: ordecaos/display:v1
+    build: ./display
+    ports:
+    - published: 5000
+      target: 5000
+      protocol: tcp
+  race_gen:
+    container_name: race_gen
+    image: ordecaos/race_gen:v1
+    build: ./race_gen
+    ports:
+    - published: 5001
+      target: 5001
+      protocol: tcp
+  class_gen:
+    container_name: class_gen
+    image: ordecaos/class_gen:v1
+    build: ./class_gen
+    ports:
+    - published: 5002
+      target: 5002
+      protocol: tcp
+  name_gen:
+    container_name: name_gen
+    image: ordecaos/name_gen:v1
+    build: ./name_gen
+    ports:
+    - published: 5003
+      target: 5003
+      protocol: tcp
